@@ -1,122 +1,123 @@
-# Customer Churn Prediction and Retention Analytics
+# Customer Churn Prediction & Retention Analytics Engine
 
-> Machine learning classification model identifying customer churn drivers to guide proactive retention.
-
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=flat-square&logo=github)](https://github.com/sohailahmed-bsrh/customer-churn-prediction)
-[![Live Showcase](https://img.shields.io/badge/Live-Showcase-0A66C2?style=flat-square&logo=googlechrome)](https://sohail.devsil.com/projects.html)
-[![Author](https://img.shields.io/badge/Author-Sohail%20Ahmed-20BEFF?style=flat-square)](https://sohail.devsil.com)
-
----
-
-## Overview
-
-Customer acquisition costs substantially exceed retention costs, making early identification of at-risk subscribers critical to business viability.
-
-This project provides an end-to-end, reproducible implementation engineered to solve this challenge through verified data transformations, reliable algorithms, and production-ready architecture.
+<p align="center">
+  <a href="https://sohail.devsil.com"><strong>Portfolio</strong></a> | 
+  <a href="https://github.com/sohailahmed-bsrh"><strong>GitHub Profile</strong></a> | 
+  <a href="https://github.com/sohailahmed-bsrh/customer-churn-prediction"><strong>Source Repository</strong></a>
+</p>
 
 ---
 
-## Key Features
+## Executive Summary & Problem Statement
 
-- Extensive exploratory data analysis isolating contract tenure, billing methods, and service usage drivers
-- Feature scaling and one-hot encoding on categorical customer attributes
-- Comparative evaluation across Logistic Regression, Decision Trees, and Random Forest models
-- Precision-recall tradeoff analysis optimizing classification thresholds for business intervention
+Acquiring new customers costs five to seven times more than retaining existing ones. In subscription, SaaS, and telecommunications businesses, unexpected customer attrition severely impacts recurring revenue and growth trajectories. Traditional retention strategies react only after cancellation occurs.
+
+This project delivers an end-to-end **Customer Churn Prediction Engine**. Built on advanced supervised classification algorithms and feature engineering techniques, the platform calculates individual customer churn risk scores weeks before departure, isolating primary churn drivers to inform proactive retention interventions.
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/sohailahmed-bsrh/myportfolio/main/assets/images/thumbnail/customer-churn-analysis.jpeg" width="650" alt="Customer Churn Prediction Engine"/>
+  <p><em>Predictive customer retention pipeline with class balancing, ensemble classifiers, and feature attribution.</em></p>
+</div>
 
 ---
 
-## System Architecture
+## Real-World Industry Applications
 
-```mermaid
-flowchart TD
-    RawData[Raw Subscriber Records] --> Clean[Imputation & Outlier Removal]
-    Clean --> Encode[One-Hot Encoding & Standardization]
-    Encode --> Split[Train/Test Stratified Split]
-    Split --> Train[Model Training: Logistic / RF]
-    Train --> Evaluate[ROC-AUC & Precision-Recall Analysis]
-    Evaluate --> Deploy[Inference on New Cohort Records]
+- **SaaS Subscription Retention**: Proactively identifies accounts with declining feature usage and schedules proactive customer success outreach.
+- **Telecom Churn Mitigation**: Flags mobile subscribers sensitive to contract renewals, competitor pricing, or frequent support tickets.
+- **Financial Banking Accounts**: Detects deposit withdrawal acceleration, declining transaction counts, and card inactivity.
+- **E-Commerce VIP Retention**: Predicts lapsing VIP customers and triggers automated re-engagement discounts.
+
+---
+
+## Technical Architecture & Engineering Walkthrough
+
+```
+                      [Historical Customer Telecom/SaaS Dataset]
+                                          │
+                                          ▼
+                      [Data Cleaning & Feature Engineering]
+                   (Tenure Ratios, Contract Type, Payment Method)
+                                          │
+                                          ▼
+                      [Class Imbalance Handling (SMOTE)]
+                                          │
+                                          ▼
+               [Model Training & Hyperparameter Grid Search]
+           (Logistic Regression, Random Forest, XGBoost, LightGBM)
+                                          │
+                                          ▼
+                 [Threshold Tuning & Precision-Recall Tradeoff]
+                                          │
+                                          ▼
+                     [SHAP Global & Local Interpretability]
+                                          │
+                                          ▼
+                   [Actionable Churn Risk Scoring Table]
 ```
 
----
+### Step 1: Exploratory Analysis & Feature Engineering
+Performs rigorous EDA on demographic, contract, payment, and usage attributes. Engineers interaction features including `MonthlyCharges_to_TotalCharges_Ratio` and `Tenure_to_Contract_Length`.
 
-## Technology Stack
+### Step 2: Mitigating Severe Class Imbalance
+Customer churn datasets exhibit natural class imbalance (typically 75% retained vs 25% churned). To prevent model bias toward majority classes, the pipeline evaluates Synthetic Minority Over-sampling Technique (SMOTE) and cost-sensitive loss functions (`scale_pos_weight`).
 
-| Technology | Version / Spec | Role in Architecture |
-| :--- | :--- | :--- |
-| **Python** | `3.10+` | Data manipulation and scientific computing |
-| **Pandas & NumPy** | `2.0+` | Dataframe transformation and array operations |
-| **Scikit-learn** | `1.3+` | Supervised estimators, validation splits, and metrics |
-| **Matplotlib & Seaborn** | `3.7+` | Feature importance and correlation heatmaps |
+### Step 3: Ensemble Classification & Cross-Validation
+Trains and evaluates multiple estimators:
+- Logistic Regression (interpretable baseline)
+- Random Forest Classifier (non-linear interactions)
+- XGBoost & LightGBM (gradient boosted decision trees with regularized split objectives)
 
----
+### Step 4: Decision Threshold Optimization
+Standard 0.5 classification thresholds are sub-optimal for asymmetric business costs (false negatives are far more costly than false positives). Optimizes decision thresholds against the Precision-Recall Curve (PR-AUC) to maximize customer recall without flooding retention teams.
 
-## Repository Structure
-
-```text
-customer-churn-prediction/
-|-- notebooks/
-|   `-- customer_churn_analysis.ipynb
-|-- data/
-|-- .gitignore
-|-- requirements.txt
-`-- README.md
-```
+### Step 5: Explainability with SHAP (SHapley Additive exPlanations)
+Computes SHAP values to identify global churn catalysts (e.g., month-to-month contracts, lack of online security add-ons) and generate local individual customer waterfall plots.
 
 ---
 
-## Installation and Execution
+## Technology Stack & Implementation Specifications
 
-### Prerequisites
-- Python 3.10 or higher
-- Git version control
-- Virtual environment manager (`venv`)
+| Component | Technology | Version | Architectural Function |
+| :--- | :--- | :--- | :--- |
+| **Gradient Boosting** | XGBoost / LightGBM | Latest | High-performance regularized tree ensemble models |
+| **Machine Learning** | Scikit-Learn | 1.3+ | Preprocessing pipelines, SMOTE integration, validation |
+| **Model Explainability** | SHAP | 0.44+ | Game-theoretic feature importance and risk attribution |
+| **Data Processing** | Pandas / NumPy | 2.x | Tabular transformation, dummy encoding, missing value imputations |
+| **Visualization** | Seaborn / Matplotlib | 3.8+ | ROC curves, Precision-Recall curves, SHAP summary plots |
 
-### Setup Instructions
-1. Clone the repository:
+---
+
+## Installation & Execution Guide
+
 ```bash
 git clone https://github.com/sohailahmed-bsrh/customer-churn-prediction.git
 cd customer-churn-prediction
-```
-
-2. Configure environment and dependencies:
-```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# Windows: venv\Scriptsctivate | Unix: source venv/bin/activate
 pip install -r requirements.txt
 jupyter notebook notebooks/customer_churn_analysis.ipynb
 ```
 
 ---
 
-## Interface and Verification
-The system produces verifiable execution logs, prediction matrices, or interactive browser interfaces depending on the target mode. Verify operation by executing the commands specified above or inspecting the demonstration notebooks.
-
----
-
-## Author and Contact
-Developed by **Sohail Ahmed** — Full Stack AI Engineer & Machine Learning Specialist.
-- **Portfolio:** [sohail.devsil.com](https://sohail.devsil.com)
-- **GitHub:** [@sohailahmed-bsrh](https://github.com/sohailahmed-bsrh)
-- **Email:** [sohail.bsrh@gmail.com](mailto:sohail.bsrh@gmail.com)
-
----
-
 ## Author & Contact Information
 
-<table width="100%" align="center">
+<table width="100%">
   <tr>
-    <td align="center" style="padding: 20px;">
+    <td width="150" align="center" valign="middle">
+      <img src="https://avatars.githubusercontent.com/u/231165170?v=4" width="120" style="border-radius: 50%;" alt="Sohail Ahmed"/>
+    </td>
+    <td>
       <h3>Sohail Ahmed</h3>
-      <p><strong>Full-Stack Artificial Intelligence & Computer Vision Engineer</strong></p>
+      <p><strong>Senior Software Engineer & AI Systems Architect</strong></p>
+      <p>Specializing in Full-Stack AI Application Development, Computer Vision, Deep Learning Pipelines, and Scalable Automation Architectures.</p>
       <p>
-        <a href="https://sohail.devsil.com"><img src="https://img.shields.io/badge/Live_Portfolio-sohail.devsil.com-0052FF?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Portfolio"/></a>
-        <a href="https://github.com/sohailahmed-bsrh"><img src="https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/></a>
-        <a href="https://linkedin.com/in/sohail-ahmed-dev"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
-        <a href="mailto:sohail.bsrh@gmail.com"><img src="https://img.shields.io/badge/Email-Contact_Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/></a>
+        <a href="https://sohail.devsil.com"><strong>Portfolio Website</strong></a> | 
+        <a href="https://github.com/sohailahmed-bsrh"><strong>GitHub Profile</strong></a> | 
+        <a href="https://www.linkedin.com/in/sohail-ahmed-546314316/"><strong>LinkedIn</strong></a> | 
+        <a href="mailto:se906403@gmail.com"><strong>Email Contact</strong></a>
       </p>
-      <p><em>Available for technical roles in Artificial Intelligence, Computer Vision, and Full-Stack Engineering.</em></p>
-      <hr style="border: 0; height: 1px; background: #30363d; margin: 15px 0;">
-      <small>Distributed under the MIT License.</small>
     </td>
   </tr>
 </table>
