@@ -1,125 +1,71 @@
-# Customer Churn Prediction & Retention Analytics Engine
+# 📉 Customer Churn Intelligence & Retention Portal
 
-<p align="center">
-  <a href="https://sohail.devsil.com"><strong>Portfolio</strong></a> | 
-  <a href="https://github.com/sohailahmed-bsrh"><strong>GitHub Profile</strong></a> | 
-  <a href="https://github.com/sohailahmed-bsrh/customer-churn-prediction"><strong>Source Repository</strong></a>
-</p>
+An enterprise-ready, interactive customer attrition analytics and machine learning application built with Python and Streamlit. This project analyzes over 5,000 telecommunications subscriber profiles to identify churn drivers, calculate subscriber attrition probabilities, and recommend automated customer retention strategies.
 
----
-
-## Executive Summary & Problem Statement
-
-Acquiring new customers costs five to seven times more than retaining existing ones. In subscription, SaaS, and telecommunications businesses, unexpected customer attrition severely impacts recurring revenue and growth trajectories. Traditional retention strategies react only after cancellation occurs.
-
-This project delivers an end-to-end **Customer Churn Prediction Engine**. Built on advanced supervised classification algorithms and feature engineering techniques, the platform calculates individual customer churn risk scores weeks before departure, isolating primary churn drivers to inform proactive retention interventions.
-
-<div align="center">
-  <img src="https://raw.githubusercontent.com/sohailahmed-bsrh/myportfolio/main/assets/images/thumbnail/customer-churn-analysis.jpeg" width="650" alt="Customer Churn Prediction Engine"/>
-  <p><em>Predictive customer retention pipeline with class balancing, ensemble classifiers, and feature attribution.</em></p>
-</div>
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
-## Real-World Industry Applications
+## 🌟 Key Features
 
-- **SaaS Subscription Retention**: Proactively identifies accounts with declining feature usage and schedules proactive customer success outreach.
-- **Telecom Churn Mitigation**: Flags mobile subscribers sensitive to contract renewals, competitor pricing, or frequent support tickets.
-- **Financial Banking Accounts**: Detects deposit withdrawal acceleration, declining transaction counts, and card inactivity.
-- **E-Commerce VIP Retention**: Predicts lapsing VIP customers and triggers automated re-engagement discounts.
-
----
-
-## Technical Architecture & Engineering Walkthrough
-
-```
-                      [Historical Customer Telecom/SaaS Dataset]
-                                          │
-                                          ▼
-                      [Data Cleaning & Feature Engineering]
-                   (Tenure Ratios, Contract Type, Payment Method)
-                                          │
-                                          ▼
-                      [Class Imbalance Handling (SMOTE)]
-                                          │
-                                          ▼
-               [Model Training & Hyperparameter Grid Search]
-           (Logistic Regression, Random Forest, XGBoost, LightGBM)
-                                          │
-                                          ▼
-                 [Threshold Tuning & Precision-Recall Tradeoff]
-                                          │
-                                          ▼
-                     [SHAP Global & Local Interpretability]
-                                          │
-                                          ▼
-                   [Actionable Churn Risk Scoring Table]
-```
-
-### Step 1: Exploratory Analysis & Feature Engineering
-Performs rigorous EDA on demographic, contract, payment, and usage attributes. Engineers interaction features including `MonthlyCharges_to_TotalCharges_Ratio` and `Tenure_to_Contract_Length`.
-
-### Step 2: Mitigating Severe Class Imbalance
-Customer churn datasets exhibit natural class imbalance (typically 75% retained vs 25% churned). To prevent model bias toward majority classes, the pipeline evaluates Synthetic Minority Over-sampling Technique (SMOTE) and cost-sensitive loss functions (`scale_pos_weight`).
-
-### Step 3: Ensemble Classification & Cross-Validation
-Trains and evaluates multiple estimators:
-- Logistic Regression (interpretable baseline)
-- Random Forest Classifier (non-linear interactions)
-- XGBoost & LightGBM (gradient boosted decision trees with regularized split objectives)
-
-### Step 4: Decision Threshold Optimization
-Standard 0.5 classification thresholds are sub-optimal for asymmetric business costs (false negatives are far more costly than false positives). Optimizes decision thresholds against the Precision-Recall Curve (PR-AUC) to maximize customer recall without flooding retention teams.
-
-### Step 5: Explainability with SHAP (SHapley Additive exPlanations)
-Computes SHAP values to identify global churn catalysts (e.g., month-to-month contracts, lack of online security add-ons) and generate local individual customer waterfall plots.
+- **Executive Churn Dashboard:** Tracks cohort size, baseline churn rate, average monthly revenue, and average subscriber lifetime.
+- **Contract & Financial Risk Mapping:** Detailed breakdown of attrition risks comparing month-to-month contracts vs 1-year and 2-year commitments.
+- **Service & Stickiness Analysis:** Quantitative analysis of how value-add services like Tech Support and Online Security reduce subscriber churn.
+- **Interactive Churn Risk Calculator:** Real-time risk probability gauge assessing customer profile parameters with automated prescriptive retention playbooks.
+- **Model Evaluation Suite:** Random Forest Classifier diagnostics featuring ROC-AUC score, confusion matrix, and feature importance rankings.
 
 ---
 
-## Technology Stack & Implementation Specifications
+## 📊 Analytical Methodology
 
-| Component | Technology | Version | Architectural Function |
-| :--- | :--- | :--- | :--- |
-| **Gradient Boosting** | XGBoost / LightGBM | Latest | High-performance regularized tree ensemble models |
-| **Machine Learning** | Scikit-Learn | 1.3+ | Preprocessing pipelines, SMOTE integration, validation |
-| **Model Explainability** | SHAP | 0.44+ | Game-theoretic feature importance and risk attribution |
-| **Data Processing** | Pandas / NumPy | 2.x | Tabular transformation, dummy encoding, missing value imputations |
-| **Visualization** | Seaborn / Matplotlib | 3.8+ | ROC curves, Precision-Recall curves, SHAP summary plots |
+1. **Cohort Segmentation:** Evaluated 5,043 subscriber records across billing methods, contract models, and product categories.
+2. **Key Insight:** Month-to-month subscribers exhibit an attrition rate of 42.7%, while 2-year contracted subscribers demonstrate under 3% churn.
+3. **Machine Learning Pipeline:** Stratified Random Forest Classifier achieving strong discrimination capability with high ROC-AUC validation score.
 
 ---
 
-## Installation & Execution Guide
+## 💻 Local Setup & Execution
 
-```bash
-git clone https://github.com/sohailahmed-bsrh/customer-churn-prediction.git
-cd customer-churn-prediction
-python -m venv venv
-# Windows: venv\Scriptsctivate | Unix: source venv/bin/activate
-pip install -r requirements.txt
-jupyter notebook notebooks/customer_churn_analysis.ipynb
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/sohailahmed-bsrh/customer-churn-prediction.git
+   cd customer-churn-prediction
+   ```
+
+2. **Create a virtual environment:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Launch the Streamlit app:**
+   ```bash
+   streamlit run app.py
+   ```
 
 ---
 
-## Author & Contact Information
+## 🚀 Deployment on Streamlit Community Cloud
 
-<table width="100%">
-  <tr>
-    <td width="150" align="center" valign="middle">
-      <img src="https://avatars.githubusercontent.com/u/231165170?v=4" width="120" style="border-radius: 50%;" alt="Sohail Ahmed"/>
-    </td>
-    <td>
-      <h3>Sohail Ahmed</h3>
-      <p><strong>Senior Software Engineer & AI Systems Architect</strong></p>
-      <p>Specializing in Full-Stack AI Application Development, Computer Vision, Deep Learning Pipelines, and Scalable Automation Architectures.</p>
-      <p>
-        <a href="https://sohail.devsil.com"><strong>Portfolio Website</strong></a> | 
-        <a href="https://github.com/sohailahmed-bsrh"><strong>GitHub Profile</strong></a> | 
-        <a href="https://www.linkedin.com/in/sohail-ahmed-devsil/"><strong>LinkedIn</strong></a> | 
-        <a href="https://www.kaggle.com/sohail2411126"><strong>Kaggle</strong></a> | 
-        <a href="https://x.com/ahmed241126"><strong>Twitter/X</strong></a> | 
-        <a href="mailto:se906403@gmail.com"><strong>Email Contact</strong></a>
-      </p>
-    </td>
-  </tr>
-</table>
+1. Fork or push this repository to your GitHub account (`https://github.com/sohailahmed-bsrh/customer-churn-prediction`).
+2. Visit [share.streamlit.io](https://share.streamlit.io/) and log in with your GitHub account.
+3. Click **New app**.
+4. Select repository: `sohailahmed-bsrh/customer-churn-prediction`
+5. Branch: `main`
+6. Main file path: `app.py`
+7. Click **Deploy!**
+
+---
+
+## 👤 Author
+
+**Sohail Ahmed**
+- **GitHub:** [@sohailahmed-bsrh](https://github.com/sohailahmed-bsrh)
+- **Portfolio:** [https://sohail.devsil.com](https://sohail.devsil.com)
